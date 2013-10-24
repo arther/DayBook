@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent">
+
+    <EditText android:id="@+id/bill_number"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:hint="@string/bill_number"
+              android:focusable="true"
+              android:digits="0123456789"
+              android:inputType="numberDecimal"/>
+
+
+    <EditText android:id="@+id/bill_amount"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:hint="@string/bill_amt"/>
+
+    <RelativeLayout android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="center_horizontal">
+
+        <Button android:id="@+id/save_button"
+                android:layout_height="40px"
+                android:layout_width="100px"
+                android:background="@color/blue"
+                android:text="@string/save"
+                android:padding="1px"
+                android:layout_marginRight="15px"/>
+
+        <Button android:id="@+id/edit_button"
+                android:layout_height="40px"
+                android:layout_width="100px"
+                android:background="@color/blue"
+                android:text="@string/edit"
+                android:layout_toRightOf="@id/save_button"
+                android:padding="1px"/>
+
+    </RelativeLayout>
+
+</LinearLayout>
+

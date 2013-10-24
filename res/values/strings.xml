@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Day Book</string>
+    <string name="bill_number">Bill Number</string>
+    <string name="bill_amt">Bill Amount</string>
+    <string name="save">Save</string>
+    <string name="edit">Edit</string>
+</resources>
