@@ -5,4 +5,5 @@
     <string name="bill_amt">Bill Amount</string>
     <string name="save">Save</string>
     <string name="edit">Edit</string>
+    <string name="summary">Summary</string>
 </resources>

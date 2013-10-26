@@ -21,7 +21,7 @@ public class BillDataStore {
     private String billNumber = "bill_number";
     private String billAmount = "bill_amount";
     private String createdAt = "created_at";
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     public BillDataStore(Context context){
         databaseHandler = new DatabaseHandler(context, tableName);
@@ -38,10 +38,14 @@ public class BillDataStore {
 
     public long addBill(Bill bill){
         database = databaseHandler.getWritableDatabase();
+        Calendar c = Calendar.getInstance();
+        c.setTime(new Date());
+
         ContentValues values = new ContentValues();
+
         values.put(billNumber, bill.getBillNumber());
         values.put(billAmount, bill.getBillAmount());
-        values.put(createdAt, sdf.format(new Date()));
+        values.put(createdAt, simpleDateFormat.format(c.getTime()));
 
         return database.insert(tableName, null, values);
     }
@@ -72,8 +76,8 @@ public class BillDataStore {
                 this.billNumber + " = " + billNumber, null, null, null, null);
 
         if(cursor.moveToFirst()){
-            resultBillNumber = Integer.valueOf(cursor.getString(0));
-            resultBillAmount = Integer.valueOf(cursor.getString(1));
+            resultBillNumber = cursor.getInt(0);
+            resultBillAmount = cursor.getInt(1);
             result = new Bill(resultBillNumber, resultBillAmount);
         }
         return result;
@@ -81,18 +85,46 @@ public class BillDataStore {
 
     public List<Bill> getBillsOf(int numberOfDays){
         List<Bill> billList = new ArrayList<Bill>();
-
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        int resultBillNumber, resultBillAmount;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Calendar c = Calendar.getInstance();
         c.setTime(new Date());
         c.add(Calendar.DATE, 1);
-        String tomorrow = sdf.format(c.getTime()) + " 00:00:00";
+        String tomorrow = dateFormat.format(c.getTime()) + " 00:00:00";
         c.add(Calendar.DATE, -(numberOfDays));
-        String previousDay = sdf.format(c.getTime()) + " 00:00:00";
+        String previousDay = dateFormat.format(c.getTime()) + " 00:00:00";
 
-        Cursor cursor = database.query(tableName, new String[]{billNumber, billAmount}, createdAt + " >= " + previousDay + " and " +
-                createdAt + " < " + tomorrow, null, null, null, null);
+        database = databaseHandler.getReadableDatabase();
+
+        Cursor cursor = database.query(tableName, new String[]{billNumber, billAmount},
+                createdAt + " >= ? and " +
+                createdAt + " < ?" , new String[] {previousDay, tomorrow}, null, null, null);
+
+        while(cursor.moveToNext() && cursor != null) {
+            resultBillNumber = cursor.getInt(0);
+            resultBillAmount = cursor.getInt(1);
+            billList.add(new Bill(resultBillNumber, resultBillAmount));
+        }
 
         return billList;
     }
+
+//    public String getDate(){
+//
+//        database = databaseHandler.getReadableDatabase();
+//
+//        Calendar c = Calendar.getInstance();
+//        c.setTime(new Date());
+//
+//        Cursor cursor = database.query(tableName, new String[] {createdAt}, "created_at >= ?",
+//                new String[] {simpleDateFormat.format(c.getTime())},
+//                null,
+//                null,
+//                null);
+//
+//        if(cursor != null && cursor.moveToFirst()){
+//            return cursor.getString(0);
+//        }
+//        return null;
+//    }
 }

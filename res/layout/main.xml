@@ -19,7 +19,7 @@
               android:hint="@string/bill_amt"/>
 
     <RelativeLayout android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
+                    android:layout_height="50px"
                     android:gravity="center_horizontal">
 
         <Button android:id="@+id/save_button"
@@ -36,6 +36,19 @@
                 android:background="@color/blue"
                 android:text="@string/edit"
                 android:layout_toRightOf="@id/save_button"
+                android:padding="1px"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="center_horizontal">
+
+        <Button android:id="@+id/summary_button"
+                android:layout_height="40px"
+                android:layout_width="100px"
+                android:background="@color/pink"
+                android:text="@string/summary"
                 android:padding="1px"/>
 
     </RelativeLayout>
