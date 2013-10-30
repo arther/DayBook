@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="com.daybook"
+      package="com.daybook.activities"
       android:versionCode="1"
       android:versionName="1.0">
     <application android:label="@string/app_name" >
-        <activity android:name="HomeActivity"
+        <activity android:name=".HomeActivity"
                   android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -12,8 +12,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".Summary"/>
-        <activity android:name=".SummaryAdapter"/>
         <activity android:name=".MissingBills"/>
-        <activity android:name=".Report"/>
     </application>
 </manifest> 

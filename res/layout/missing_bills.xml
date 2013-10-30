@@ -4,7 +4,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:padding="10dip"
-                android:background="@color/grey">
+                >
 
     <TextView
             android:id="@+id/missing_bill_number"
