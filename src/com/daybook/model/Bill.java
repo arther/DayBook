@@ -1,19 +1,19 @@
 package com.daybook.model;
 
 public class Bill {
-    private int billNumber;
-    private int billAmount;
+    private int number;
+    private int amount;
 
     public Bill(int billNumber, int billAmount) {
-        this.billNumber = billNumber;
-        this.billAmount = billAmount;
+        this.number = billNumber;
+        this.amount = billAmount;
     }
 
-    public int getBillAmount() {
-        return billAmount;
+    public int getAmount() {
+        return amount;
     }
 
-    public int getBillNumber() {
-        return billNumber;
+    public int getNumber() {
+        return number;
     }
 }

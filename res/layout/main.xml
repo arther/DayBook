@@ -49,8 +49,17 @@
                 android:layout_width="100px"
                 android:background="@color/pink"
                 android:text="@string/summary"
+                android:layout_marginRight="5px"
                 android:padding="1px"/>
 
+        <Button android:id="@+id/missing_bill_button"
+                android:layout_height="40px"
+                android:layout_width="100px"
+                android:background="@color/pink"
+                android:text="@string/missing_bills"
+                android:layout_toRightOf="@id/summary_button"
+                android:layout_marginLeft="5px"
+                android:padding="1px"/>
     </RelativeLayout>
 
 </LinearLayout>

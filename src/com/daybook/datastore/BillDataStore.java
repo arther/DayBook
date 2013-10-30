@@ -23,7 +23,7 @@ public class BillDataStore {
     private String createdAt = "created_at";
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-    public BillDataStore(Context context){
+    public BillDataStore(Context context) {
         databaseHandler = new DatabaseHandler(context, tableName);
     }
 
@@ -36,24 +36,24 @@ public class BillDataStore {
         database.close();
     }
 
-    public long addBill(Bill bill){
+    public long addBill(Bill bill) {
         database = databaseHandler.getWritableDatabase();
         Calendar c = Calendar.getInstance();
         c.setTime(new Date());
 
         ContentValues values = new ContentValues();
 
-        values.put(billNumber, bill.getBillNumber());
-        values.put(billAmount, bill.getBillAmount());
+        values.put(billNumber, bill.getNumber());
+        values.put(billAmount, bill.getAmount());
         values.put(createdAt, simpleDateFormat.format(c.getTime()));
 
-        return database.insert(tableName, null, values);
+        return database.insertOrThrow(tableName, null, values);
     }
 
     public List<Bill> getAllBill() {
         List<Bill> bills = new ArrayList<Bill>();
 
-        Cursor cursor = database.query(tableName, new String[] {billNumber,
+        Cursor cursor = database.query(tableName, new String[]{billNumber,
                 billAmount}, null, null, null, null, null);
 
         if (cursor.moveToFirst()) {
@@ -75,7 +75,7 @@ public class BillDataStore {
         Cursor cursor = database.query(tableName, new String[]{this.billNumber, this.billAmount},
                 this.billNumber + " = " + billNumber, null, null, null, null);
 
-        if(cursor.moveToFirst()){
+        if (cursor.moveToFirst()) {
             resultBillNumber = cursor.getInt(0);
             resultBillAmount = cursor.getInt(1);
             result = new Bill(resultBillNumber, resultBillAmount);
@@ -83,10 +83,10 @@ public class BillDataStore {
         return result;
     }
 
-    public List<Bill> getBillsOf(int numberOfDays){
+    public List<Bill> getBillsOf(int numberOfDays) {
         List<Bill> billList = new ArrayList<Bill>();
         int resultBillNumber, resultBillAmount;
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Calendar c = Calendar.getInstance();
         c.setTime(new Date());
         c.add(Calendar.DATE, 1);
@@ -98,9 +98,9 @@ public class BillDataStore {
 
         Cursor cursor = database.query(tableName, new String[]{billNumber, billAmount},
                 createdAt + " >= ? and " +
-                createdAt + " < ?" , new String[] {previousDay, tomorrow}, null, null, null);
+                        createdAt + " < ?", new String[]{previousDay, tomorrow}, null, null, null);
 
-        while(cursor.moveToNext() && cursor != null) {
+        while (cursor.moveToNext() && cursor != null) {
             resultBillNumber = cursor.getInt(0);
             resultBillAmount = cursor.getInt(1);
             billList.add(new Bill(resultBillNumber, resultBillAmount));
@@ -109,22 +109,30 @@ public class BillDataStore {
         return billList;
     }
 
-//    public String getDate(){
-//
-//        database = databaseHandler.getReadableDatabase();
-//
-//        Calendar c = Calendar.getInstance();
-//        c.setTime(new Date());
-//
-//        Cursor cursor = database.query(tableName, new String[] {createdAt}, "created_at >= ?",
-//                new String[] {simpleDateFormat.format(c.getTime())},
-//                null,
-//                null,
-//                null);
-//
-//        if(cursor != null && cursor.moveToFirst()){
-//            return cursor.getString(0);
-//        }
-//        return null;
-//    }
+    public List<String> missingBills(int startingNumber, int endingNumber) {
+        List<String> missingBills = new ArrayList<String>();
+        List<String> availBills = new ArrayList<String>();
+        database = databaseHandler.getReadableDatabase();
+
+        Cursor cursor = database.query(tableName, new String[]{billNumber},
+                "date(" + createdAt + ") = date('now') and " + billNumber + " >= " + startingNumber + " and " +
+                        billNumber + " <= " + endingNumber,
+                null, null,
+                null,
+                null);
+
+        while (cursor.moveToNext()) {
+            availBills.add(cursor.getString(0));
+        }
+
+        for(int i= startingNumber; i <= endingNumber; i++) {
+            String billNumber = String.valueOf(i);
+            if(!availBills.contains(billNumber)){
+                missingBills.add(billNumber);
+            }
+        }
+
+        return missingBills;
+
+    }
 }
