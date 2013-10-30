@@ -2,7 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="fill_parent"
-              android:layout_height="fill_parent">
+              android:layout_height="fill_parent"
+              android:background="@color/grey"
+              android:gravity="center_horizontal"
+              >
 
     <EditText android:id="@+id/bill_number"
               android:layout_width="fill_parent"
@@ -10,34 +13,38 @@
               android:hint="@string/bill_number"
               android:focusable="true"
               android:digits="0123456789"
-              android:inputType="numberDecimal"/>
+              android:inputType="numberDecimal"
+              />
 
 
     <EditText android:id="@+id/bill_amount"
               android:layout_width="fill_parent"
               android:layout_height="wrap_content"
-              android:hint="@string/bill_amt"/>
+              android:hint="@string/bill_amt"
+                />
 
     <RelativeLayout android:layout_width="fill_parent"
                     android:layout_height="50px"
-                    android:gravity="center_horizontal">
+                    android:gravity="center_horizontal"
+                    android:layout_marginTop="4px">
 
         <Button android:id="@+id/save_button"
                 android:layout_height="40px"
-                android:layout_width="100px"
+                android:layout_width="110px"
                 android:background="@color/blue"
                 android:text="@string/save"
-                android:padding="1px"
-                android:layout_marginRight="15px"/>
+                android:layout_marginRight="10px"
+                android:textSize="20"
+                android:textStyle="bold"/>
 
         <Button android:id="@+id/edit_button"
                 android:layout_height="40px"
-                android:layout_width="100px"
+                android:layout_width="110px"
                 android:background="@color/blue"
                 android:text="@string/edit"
                 android:layout_toRightOf="@id/save_button"
-                android:padding="1px"/>
-
+                android:textSize="20"
+                android:textStyle="bold"/>
     </RelativeLayout>
 
     <RelativeLayout android:layout_width="fill_parent"
@@ -46,35 +53,36 @@
 
         <Button android:id="@+id/summary_button"
                 android:layout_height="40px"
-                android:layout_width="100px"
-                android:background="@color/pink"
+                android:layout_width="110px"
+                android:background="@color/blue"
                 android:text="@string/summary"
-                android:layout_marginRight="5px"
-                android:padding="1px"/>
+                android:layout_marginRight="10px"
+                android:textSize="20"
+                android:textStyle="bold"/>
 
         <Button android:id="@+id/missing_bill_button"
                 android:layout_height="40px"
-                android:layout_width="100px"
-                android:background="@color/pink"
+                android:layout_width="110px"
+                android:background="@color/blue"
                 android:text="@string/missing_bills"
                 android:layout_toRightOf="@id/summary_button"
-                android:layout_marginLeft="5px"
-                android:padding="1px"/>
+                android:textSize="20"
+                android:textStyle="bold"/>
 
     </RelativeLayout>
 
-
     <RelativeLayout android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
+                    android:layout_height="50px"
                     android:gravity="center_horizontal">
 
         <Button android:id="@+id/report_button"
                 android:layout_height="40px"
-                android:layout_width="100px"
-                android:background="@color/pink"
+                android:layout_width="180px"
+                android:background="@color/blue"
                 android:text="@string/report"
-                android:layout_marginRight="5px"
-                android:padding="1px"/>
+                android:padding="1px"
+                android:textSize="20"
+                android:textStyle="bold"/>
 
     </RelativeLayout>
 

@@ -1,4 +1,6 @@
 <resources>
-    <color name="blue">#008899</color>
-    <color name="pink">#9900ff</color>
+    <color name="pink">#9911ff</color>
+    <color name="blue">#7b8896</color>
+    <color name="grey">#c4bdb7</color>
+    <color name="white">#ffffff</color>
 </resources>

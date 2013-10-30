@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:padding="6dip"
+                android:background="@color/grey">
+
+    <TextView
+            android:id="@+id/summary_bill_number"
+            android:layout_width="100px"
+            android:layout_height="wrap_content"
+            android:text="Example application"
+            android:textSize="16sp" />
+
+
+    <TextView
+            android:id="@+id/summary_bill_amount"
+            android:layout_width="100px"
+            android:layout_height="wrap_content"
+            android:text="Description"
+            android:layout_toRightOf="@id/summary_bill_number"
+            android:layout_marginLeft="2px"
+            android:textSize="16sp" />
+
+
+</RelativeLayout>
