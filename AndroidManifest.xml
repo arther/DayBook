@@ -14,5 +14,6 @@
         <activity android:name=".Summary"/>
         <activity android:name=".SummaryAdapter"/>
         <activity android:name=".MissingBills"/>
+        <activity android:name=".Report"/>
     </application>
 </manifest> 

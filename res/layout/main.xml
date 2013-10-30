@@ -41,7 +41,7 @@
     </RelativeLayout>
 
     <RelativeLayout android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
+                    android:layout_height="50px"
                     android:gravity="center_horizontal">
 
         <Button android:id="@+id/summary_button"
@@ -60,6 +60,22 @@
                 android:layout_toRightOf="@id/summary_button"
                 android:layout_marginLeft="5px"
                 android:padding="1px"/>
+
+    </RelativeLayout>
+
+
+    <RelativeLayout android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="center_horizontal">
+
+        <Button android:id="@+id/report_button"
+                android:layout_height="40px"
+                android:layout_width="100px"
+                android:background="@color/pink"
+                android:text="@string/report"
+                android:layout_marginRight="5px"
+                android:padding="1px"/>
+
     </RelativeLayout>
 
 </LinearLayout>

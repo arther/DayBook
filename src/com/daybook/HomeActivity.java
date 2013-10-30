@@ -12,6 +12,8 @@ import android.widget.Toast;
 import com.daybook.datastore.BillDataStore;
 import com.daybook.model.Bill;
 
+import java.util.List;
+
 public class HomeActivity extends Activity {
     private int billNumber;
     private int billAmount;
@@ -20,6 +22,7 @@ public class HomeActivity extends Activity {
     private BillDataStore billDataStore;
     private Button summary;
     private Button missingBills;
+    private Button report;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,7 @@ public class HomeActivity extends Activity {
         edit = (Button) findViewById(R.id.edit_button);
         summary = (Button) findViewById(R.id.summary_button);
         missingBills = (Button) findViewById(R.id.missing_bill_button);
+        report = (Button) findViewById(R.id.report_button);
 
         setSaveOnClick(billAmountView, billNumberView);
 
@@ -49,6 +53,23 @@ public class HomeActivity extends Activity {
 
         setSummaryOnclick();
 
+        setMissingOnclick();
+
+        setReportOnclick();
+
+    }
+
+    private void setReportOnclick() {
+        report.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                List<Bill> bills = billDataStore.getBillsOf(1);
+                new Report().generateReport(bills);
+            }
+        });
+    }
+
+    private void setMissingOnclick() {
         missingBills.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,7 +77,6 @@ public class HomeActivity extends Activity {
                 startActivity(intent);
             }
         });
-
     }
 
     private void setSummaryOnclick() {
