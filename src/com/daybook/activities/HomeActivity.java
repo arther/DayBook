@@ -3,8 +3,14 @@ package com.daybook.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.SQLException;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputFilter;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,8 +37,8 @@ public class HomeActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        final EditText billAmountView = (EditText) findViewById(R.id.bill_amount);
         final EditText billNumberView = (EditText) findViewById(R.id.bill_number);
+        final EditText billAmountView = (EditText) findViewById(R.id.bill_amount);
 
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
@@ -47,6 +53,16 @@ public class HomeActivity extends Activity {
         summary = (Button) findViewById(R.id.summary_button);
         missingBills = (Button) findViewById(R.id.missing_bill_button);
         report = (Button) findViewById(R.id.report_button);
+
+        billNumberView.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                if(billNumberView.getText().length() == 4){
+                    billAmountView.requestFocus();
+                }
+                return false;
+            }
+        });
 
         setSaveOnClick(billAmountView, billNumberView);
 
@@ -105,7 +121,7 @@ public class HomeActivity extends Activity {
                 toast.show();
                 billAmountView.setText("");
                 billNumberView.setText("");
-                billNumberView.setFocusable(true);
+                billNumberView.requestFocus();
             }
         });
     }
@@ -115,14 +131,18 @@ public class HomeActivity extends Activity {
 
             @Override
             public void onClick(View view) {
-                billAmount = Integer.valueOf(billNumberView.getText().toString());
-                Bill resultBill = billDataStore.findBillWith(billAmount);
+                billNumber = Integer.valueOf(billNumberView.getText().toString());
+                Bill resultBill = billDataStore.findBillWith(billNumber);
+                billAmountView.setText("");
                 if (resultBill != null) {
                     billAmountView.setText(String.valueOf(resultBill.getAmount()));
                 } else {
                     Toast toast = Toast.makeText(getApplicationContext(), "Bill Number not found",
                             Toast.LENGTH_LONG);
-                    billAmountView.setText("");
+                    Spannable spannable = new SpannableString(String.valueOf(billNumber));
+                    spannable.setSpan(new ForegroundColorSpan(Color.RED), 0, 4, Spanned.SPAN_MARK_MARK);
+                    billNumberView.setText(spannable);
+                    billNumberView.selectAll();
                     toast.show();
                 }
             }
