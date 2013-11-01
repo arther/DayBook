@@ -57,8 +57,11 @@ public class HomeActivity extends Activity {
         billNumberView.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                if(billNumberView.getText().length() == 4){
-                    billAmountView.requestFocus();
+                Integer keyCode = keyEvent.getKeyCode();
+                if (keyCode != KeyEvent.KEYCODE_DEL && keyCode != KeyEvent.KEYCODE_FORWARD_DEL) {
+                    if (billNumberView.getText().length() == 4) {
+                        billAmountView.requestFocus();
+                    }
                 }
                 return false;
             }
